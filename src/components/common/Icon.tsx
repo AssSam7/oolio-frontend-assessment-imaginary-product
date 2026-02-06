@@ -3,7 +3,7 @@ import { HelpCircle } from "lucide-react";
 import type { LucideProps } from "lucide-react";
 import type { ComponentType } from "react";
 
-type IconName = keyof typeof LucideIcons;
+export type IconName = keyof typeof LucideIcons;
 
 interface IconProps extends LucideProps {
   name: IconName;
