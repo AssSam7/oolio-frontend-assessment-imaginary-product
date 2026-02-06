@@ -1,5 +1,7 @@
 import { Outlet } from "react-router-dom";
 import AppHeader from "@/components/ui/AppHeader";
+import { Suspense } from "react";
+import PageLoader from "@/components/common/PageLoader";
 
 const MainLayout = () => {
   return (
@@ -7,7 +9,9 @@ const MainLayout = () => {
       <AppHeader />
 
       <main className="flex-1 pt-[60px]">
-        <Outlet />
+        <Suspense fallback={<PageLoader />}>
+          <Outlet />
+        </Suspense>
       </main>
     </div>
   );
