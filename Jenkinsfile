@@ -2,6 +2,7 @@ pipeline {
     agent {
         docker {
             image 'node:20'
+            args '-u root'
         }
     }
 
@@ -10,12 +11,6 @@ pipeline {
     }
 
     stages {
-
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
 
         stage('Install Dependencies') {
             steps {
@@ -32,7 +27,7 @@ pipeline {
         stage('Deploy to Vercel') {
             steps {
                 sh 'npm install -g vercel'
-                sh 'vercel --prod --token=$VERCEL_TOKEN --yes'
+                sh 'vercel deploy --prod --token=$VERCEL_TOKEN --yes'
             }
         }
     }
