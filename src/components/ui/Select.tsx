@@ -43,6 +43,10 @@ interface SelectProps<T, Multiple extends boolean = false> {
   onChange?: (value: SelectValue<T, Multiple>) => void;
   onOpenChange?: (open: boolean) => void;
   className?: string;
+
+  /* ⭐ NEW */
+  layout?: "vertical" | "horizontal";
+  labelWidth?: string;
 }
 
 /* ---------------- Component ---------------- */
@@ -65,6 +69,8 @@ function SelectInner<T, Multiple extends boolean = false>(
     onChange,
     onOpenChange,
     className,
+    layout,
+    labelWidth,
   }: SelectProps<T, Multiple>,
   ref: React.Ref<HTMLButtonElement>
 ) {
@@ -73,6 +79,8 @@ function SelectInner<T, Multiple extends boolean = false>(
 
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
+
+  const isHorizontal = layout === "horizontal";
 
   /* Close on outside click */
   useEffect(() => {
@@ -169,20 +177,28 @@ function SelectInner<T, Multiple extends boolean = false>(
   /* ---------------- Render ---------------- */
 
   return (
-    <div ref={containerRef} className={cn("space-y-2", className)}>
+    <div
+      ref={containerRef}
+      className={cn(
+        isHorizontal ? "flex items-center gap-1" : "space-y-2",
+        className
+      )}
+    >
       {label && (
         <label
           htmlFor={id}
           className={cn(
             "text-sm font-medium leading-none",
+            isHorizontal && "whitespace-nowrap",
             error && "text-destructive"
           )}
+          style={isHorizontal ? { width: labelWidth } : undefined}
         >
           {label}
         </label>
       )}
 
-      <div className="relative">
+      <div className={cn("relative", isHorizontal && "flex-1")}>
         {/* Trigger */}
         <button
           ref={ref}

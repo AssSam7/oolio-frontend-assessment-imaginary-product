@@ -1,5 +1,3 @@
-const ProductDetailsPage = () => {
-  return <div className="text-white">ProductDetails</div>;
-};
+import AllProductsPage from "@/features/products/pages/AllProductsPage";
 
-export default ProductDetailsPage;
+export default AllProductsPage;
