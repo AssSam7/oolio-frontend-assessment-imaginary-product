@@ -1,8 +1,9 @@
-import { seededRandom } from "../utils/seededRandom";
+import { extractSeed, seededRandom } from "../utils/seededRandom";
 import type {
   ProductReviewsData,
   ProductReview,
 } from "../types/productReview.types";
+import { generateRatingFromProductId } from "../utils/rating.generator";
 
 const AUTHORS = [
   "Sarah Johnson",
@@ -32,8 +33,9 @@ const CONTENT = [
 export const generateProductReviews = (
   productId: string | number
 ): ProductReviewsData => {
-  const seed = Number(productId);
-  const rand = seededRandom(seed);
+  const seed = extractSeed(productId);
+  const randRaw = seededRandom(seed);
+  const rand = Number.isFinite(randRaw) ? randRaw : 0.5;
 
   const reviewCount = Math.floor(rand * 6) + 3;
 
@@ -67,12 +69,14 @@ export const generateProductReviews = (
     }
   );
 
-  const averageRating =
-    reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length;
+  const summary = generateRatingFromProductId(String(productId));
+
+  const averageRating = summary.rating;
+  const totalReviews = summary.reviewCount;
 
   return {
-    averageRating: Number(averageRating.toFixed(1)),
-    totalReviews: Math.floor(rand * 1500) + reviews.length,
+    averageRating,
+    totalReviews,
     reviews,
   };
 };

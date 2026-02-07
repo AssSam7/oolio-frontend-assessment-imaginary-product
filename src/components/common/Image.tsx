@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallbackSrc?: string;
@@ -10,8 +10,12 @@ const Image = forwardRef<HTMLImageElement, ImageProps>(
   ({ src, alt = "", fallbackSrc = DEFAULT_FALLBACK, ...props }, ref) => {
     const [imgSrc, setImgSrc] = useState(src);
 
+    /* 🔥 Sync when src changes */
+    useEffect(() => {
+      setImgSrc(src);
+    }, [src]);
+
     const handleError = () => {
-      // Prevent infinite fallback loop
       if (imgSrc !== fallbackSrc) {
         setImgSrc(fallbackSrc);
       }

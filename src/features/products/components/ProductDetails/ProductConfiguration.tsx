@@ -3,6 +3,7 @@ import Button from "@/components/ui/Button";
 import Icon from "@/components/common/Icon";
 
 import type { ProductDetails } from "@/domain/products/types/productDetails.types";
+import Input from "@/components/ui/Input";
 
 interface ProductConfigurationProps {
   product: ProductDetails;
@@ -109,7 +110,7 @@ const ProductConfiguration = ({
                 key={size}
                 onClick={() => setSelectedSize(size)}
                 className={`
-                  w-12 h-12 rounded-md border-2 transition-all font-medium
+                  p-2 rounded-md border-2 transition-all font-medium
                   ${
                     selectedSize === size
                       ? "border-primary bg-primary/10 text-primary"
@@ -134,13 +135,13 @@ const ProductConfiguration = ({
         <div className="flex items-center gap-3">
           <button
             onClick={decrementQuantity}
-            disabled={quantity <= 1}
+            disabled={quantity < 1}
             className="w-10 h-10 flex items-center justify-center bg-muted border border-border rounded-md disabled:opacity-50"
           >
             <Icon name="Minus" size={18} />
           </button>
 
-          <input
+          <Input
             type="number"
             value={quantity}
             min={1}

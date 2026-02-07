@@ -1,9 +1,16 @@
-import { seededRandom } from "../utils/seededRandom";
+import { extractSeed, seededRandom } from "../utils/seededRandom";
 import type { Product } from "../types/products.types";
 import type { ProductDetails } from "../types/productDetails.types";
 
+import { generateRatingFromProductId } from "../utils/rating.generator";
+
 export const generateProductDetails = (product: Product): ProductDetails => {
-  const rand = seededRandom(Number(product.id));
+  const seed = extractSeed(product.id);
+
+  const randRaw = seededRandom(seed);
+  const rand = Number.isFinite(randRaw) ? randRaw : 0.5;
+
+  const ratingSummary = generateRatingFromProductId(product.id);
 
   return {
     ...product,
@@ -15,7 +22,8 @@ export const generateProductDetails = (product: Product): ProductDetails => {
 
     discount: rand > 0.6 ? Math.floor(rand * 30) : 0,
 
-    reviewCount: Math.floor(rand * 2000),
+    rating: ratingSummary.rating,
+    reviewCount: ratingSummary.reviewCount,
 
     inStock: rand > 0.2,
     stockCount: Math.floor(rand * 100),

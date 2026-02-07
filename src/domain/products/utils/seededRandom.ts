@@ -7,3 +7,10 @@ export const seededRandom = (seed: string | number) => {
   const x = Math.sin(numericSeed) * 10000;
   return x - Math.floor(x);
 };
+
+export const extractSeed = (id: string | number) => {
+  if (typeof id === "number") return id;
+
+  const lastPart = id.split("-").pop();
+  return Number(lastPart ?? 0);
+};

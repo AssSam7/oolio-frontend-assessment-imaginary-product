@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 
 import Image from "@/components/common/Image";
 import Icon from "@/components/common/Icon";
@@ -28,10 +28,10 @@ const ProductImageGallery = ({
   /* ---------- Safe Image Handling ---------- */
   const totalImages = images?.length ?? 0;
 
-  const currentImage = useMemo(() => {
-    if (!images || totalImages === 0) return undefined;
-    return images[Math.min(selectedImage, totalImages - 1)];
-  }, [images, selectedImage, totalImages]);
+  const safeIndex = selectedImage >= totalImages ? 0 : selectedImage;
+
+  const currentImage =
+    images && totalImages > 0 ? images[safeIndex] : undefined;
 
   /* ---------- Navigation ---------- */
   const nextImage = () => {

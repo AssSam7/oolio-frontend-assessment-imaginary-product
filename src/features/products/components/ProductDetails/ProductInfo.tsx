@@ -131,7 +131,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
 
       {/* Key Features */}
 
-      {product.features?.length > 0 && (
+      {product.features && product.features?.length > 0 && (
         <div>
           <h2 className="text-lg md:text-xl font-semibold text-foreground mb-3">
             Key Features

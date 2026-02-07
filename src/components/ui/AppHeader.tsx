@@ -23,7 +23,12 @@ const Header = () => {
     { label: "Library", path: "/library", icon: "LibraryBig" },
   ];
 
-  const isActivePath = (path: string) => location.pathname === path;
+  const isActivePath = (path: string) => {
+    if (path.startsWith("/products")) {
+      return location.pathname.startsWith("/products");
+    }
+    return location.pathname === path;
+  };
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);
