@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:20'
+        }
+    }
 
     environment {
         VERCEL_TOKEN = credentials('vercel-token')
@@ -7,41 +11,22 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+        stage('Install Dependencies') {
             steps {
-                checkout scm
+                sh 'npm install'
             }
         }
 
-        stage('Build & Deploy') {
-            agent {
-                docker {
-                    image 'node:20'
-                    reuseNode true
-                }
+        stage('Build Project') {
+            steps {
+                sh 'npm run build'
             }
+        }
 
-            stages {
-
-                stage('Install Dependencies') {
-                    steps {
-                        sh 'npm install'
-                    }
-                }
-
-                stage('Build Project') {
-                    steps {
-                        sh 'npm run build'
-                    }
-                }
-
-                stage('Deploy to Vercel') {
-                    steps {
-                        sh 'npm install -g vercel'
-                        sh 'vercel --prod --token=$VERCEL_TOKEN --yes'
-                    }
-                }
-
+        stage('Deploy to Vercel') {
+            steps {
+                sh 'npm install -g vercel'
+                sh 'vercel --prod --token=$VERCEL_TOKEN --yes'
             }
         }
     }
