@@ -2,7 +2,7 @@ import {
   PRODUCT_NAMES,
   PRODUCT_CATEGORIES,
 } from "../constants/product.constants";
-import type { Product } from "../types/product.types";
+import type { Product } from "../types/products.types";
 
 const seededRandom = (seed: number) => {
   const x = Math.sin(seed) * 10000;

@@ -1,4 +1,4 @@
-import type { Product, ProductFilters } from "../types/product.types";
+import type { Product, ProductFilters } from "../types/products.types";
 
 export const filterProducts = (
   products: Product[],
