@@ -16,7 +16,7 @@ const Header = () => {
 
   const navigationItems: NavigationItemType[] = [
     { label: "Dashboard", path: "/dashboard", icon: "LayoutDashboard" },
-    { label: "Products", path: "/product-details", icon: "Package" },
+    { label: "Products", path: "/products", icon: "Package" },
     { label: "Cart", path: "/shopping-cart", icon: "ShoppingCart" },
     { label: "Account", path: "/user-authentication", icon: "User" },
     { label: "E Book", path: "/ebook", icon: "Book" },

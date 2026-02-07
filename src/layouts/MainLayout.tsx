@@ -10,7 +10,7 @@ const MainLayout = () => {
       <AppHeader />
       <PerformanceMonitor />
 
-      <main className="flex-1">
+      <main className="flex-1 pt-[76px]">
         <Suspense fallback={<PageLoader />}>
           <Outlet />
         </Suspense>

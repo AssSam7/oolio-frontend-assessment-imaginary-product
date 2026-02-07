@@ -1,5 +1,5 @@
 const ProductDetailsPage = () => {
-  return <div>ProductDetails</div>;
+  return <div className="text-white">ProductDetails</div>;
 };
 
 export default ProductDetailsPage;

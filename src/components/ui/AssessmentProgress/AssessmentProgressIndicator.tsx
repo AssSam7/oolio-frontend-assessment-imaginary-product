@@ -4,7 +4,7 @@ import type { AssessmentRoutePath } from "./types";
 
 const navigationItems: { path: AssessmentRoutePath; label: string }[] = [
   { path: "/dashboard", label: "Dashboard" },
-  { path: "/product-details", label: "Products" },
+  { path: "/products", label: "Products" },
   { path: "/shopping-cart", label: "Cart" },
   { path: "/user-authentication", label: "Account" },
 ];

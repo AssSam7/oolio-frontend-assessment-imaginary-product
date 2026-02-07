@@ -1,6 +1,6 @@
 export type AssessmentRoutePath =
   | "/dashboard"
-  | "/product-details"
+  | "/products"
   | "/shopping-cart"
   | "/user-authentication";
 

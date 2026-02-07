@@ -71,14 +71,14 @@ const DashboardPage = () => {
 
   const handleProductClick = useCallback(
     (product: Product) => {
-      navigate("/product-details", { state: { product } });
+      navigate("/products", { state: { product } });
     },
     [navigate]
   );
 
   return (
     <div className="min-h-screen bg-background">
-      <main className="pt-[76px] px-4 md:px-6 lg:px-8 pb-8">
+      <main className=" px-4 md:px-6 lg:px-8 pb-8">
         <div className="max-w-[1920px] mx-auto">
           {/* Top Header */}
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mb-6 mt-6">
