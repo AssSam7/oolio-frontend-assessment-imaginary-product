@@ -9,7 +9,9 @@ export interface AppRoute {
 
 const DashboardPage = lazy(() => import("@/pages/dashboard"));
 
-const AllProductPage = lazy(() => import("@/pages/products"));
+const AllProductsPage = lazy(() => import("@/pages/products"));
+
+const ProductDetailsPage = lazy(() => import("@/pages/product-details"));
 
 const UserAuthenticationPage = lazy(
   () => import("@/pages/user-authentication")
@@ -30,10 +32,20 @@ export const appRoutes: AppRoute[] = [
     path: "/dashboard",
     element: <DashboardPage />,
   },
+
+  /* ---------- Products Flow ---------- */
+
   {
     path: "/products",
-    element: <AllProductPage />,
+    element: <AllProductsPage />,
   },
+  {
+    path: "/products/:productId",
+    element: <ProductDetailsPage />,
+  },
+
+  /* ---------- Other Routes ---------- */
+
   {
     path: "/user-authentication",
     element: <UserAuthenticationPage />,

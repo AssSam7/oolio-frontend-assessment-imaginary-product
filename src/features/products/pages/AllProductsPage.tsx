@@ -49,7 +49,7 @@ const AllProductsPage = () => {
 
   const handleProductClick = useCallback(
     (product: Product) => {
-      navigate(`/product/${product.id}`);
+      navigate(`/products/${product.id}`);
     },
     [navigate]
   );

@@ -72,7 +72,7 @@ const DashboardPage = () => {
 
   const handleProductClick = useCallback(
     (product: Product) => {
-      navigate("/products", { state: { product } });
+      navigate(`/products/${product.id}`);
     },
     [navigate]
   );

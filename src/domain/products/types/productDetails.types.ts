@@ -21,7 +21,9 @@ export interface ProductDetails extends Product {
   colors?: string[];
   sizes?: string[];
 
-  features: string[];
+  features?: string[];
 
-  specifications: Record<string, string>;
+  specifications: ProductSpecifications;
 }
+
+export type ProductSpecifications = Record<string, string>;

@@ -4,7 +4,8 @@ import type { AssessmentRoutePath, ProgressItem } from "./types";
 
 const initialProgress: Record<AssessmentRoutePath, ProgressItem> = {
   "/dashboard": { identified: 0, resolved: 0, total: 8 },
-  "/products": { identified: 0, resolved: 0, total: 6 },
+  "/products": { identified: 0, resolved: 0, total: 0 },
+  "/products/:productId": { identified: 0, resolved: 0, total: 6 },
   "/shopping-cart": { identified: 0, resolved: 0, total: 7 },
   "/user-authentication": { identified: 0, resolved: 0, total: 5 },
 };
