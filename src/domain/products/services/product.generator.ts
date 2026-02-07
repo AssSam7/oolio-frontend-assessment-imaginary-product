@@ -3,11 +3,7 @@ import {
   PRODUCT_CATEGORIES,
 } from "../constants/product.constants";
 import type { Product } from "../types/products.types";
-
-const seededRandom = (seed: number) => {
-  const x = Math.sin(seed) * 10000;
-  return x - Math.floor(x);
-};
+import { seededRandom } from "../utils/seededRandom";
 
 export const generateProducts = (count: number): Product[] => {
   return Array.from({ length: count }, (_, index) => {

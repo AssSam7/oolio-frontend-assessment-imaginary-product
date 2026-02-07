@@ -102,7 +102,12 @@ const ProductsSidebarFilters = ({
         onChange={(v) => update({ minRating: v })}
       />
 
-      <Button variant="outline" fullWidth onClick={resetFilters}>
+      <Button
+        variant="outline"
+        iconName="RotateCcw"
+        iconPosition="left"
+        onClick={resetFilters}
+      >
         Reset Filters
       </Button>
     </aside>
