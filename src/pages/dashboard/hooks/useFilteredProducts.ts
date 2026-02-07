@@ -25,5 +25,11 @@ export const useFilteredProducts = (
         matchesSearch && matchesCategory && matchesMinPrice && matchesMaxPrice
       );
     });
-  }, [products, filters]);
+  }, [
+    products,
+    filters.search,
+    filters.category,
+    filters.minPrice,
+    filters.maxPrice,
+  ]);
 };

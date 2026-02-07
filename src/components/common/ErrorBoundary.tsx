@@ -95,4 +95,11 @@ class ErrorBoundary extends Component<Props, State> {
   }
 }
 
+/*
+ * Removed legacy ErrorBoundaryStatusIndicator overlay.
+ * Previous implementation relied on manual boolean flags
+ * and did not reflect real boundary state.
+ * Avoided introducing duplicate global overlay UI.
+ */
+
 export default ErrorBoundary;

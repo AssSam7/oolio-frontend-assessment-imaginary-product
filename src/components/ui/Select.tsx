@@ -13,7 +13,7 @@ import { cn } from "@/utils/cn";
 import Button from "./Button";
 import Input from "./Input";
 
-/* ------------------ Types ------------------ */
+/* ---------------- Types ---------------- */
 
 export interface SelectOption<T = string> {
   label: string;
@@ -45,7 +45,7 @@ interface SelectProps<T, Multiple extends boolean = false> {
   className?: string;
 }
 
-/* ------------------ Component ------------------ */
+/* ---------------- Component ---------------- */
 
 function SelectInner<T, Multiple extends boolean = false>(
   {
@@ -68,14 +68,13 @@ function SelectInner<T, Multiple extends boolean = false>(
   }: SelectProps<T, Multiple>,
   ref: React.Ref<HTMLButtonElement>
 ) {
-  const id = useId(); // React-safe ID
+  const id = useId();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
 
-  /* ---------------- Outside Click ---------------- */
-
+  /* Close on outside click */
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (!containerRef.current?.contains(e.target as Node)) {
@@ -88,8 +87,7 @@ function SelectInner<T, Multiple extends boolean = false>(
     return () => document.removeEventListener("mousedown", handleClick);
   }, [onOpenChange]);
 
-  /* ---------------- ESC Key Close ---------------- */
-
+  /* Close on ESC */
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -102,8 +100,7 @@ function SelectInner<T, Multiple extends boolean = false>(
     return () => document.removeEventListener("keydown", handleKey);
   }, [onOpenChange]);
 
-  /* ---------------- Derived Data ---------------- */
-
+  /* Filter options */
   const filteredOptions = useMemo(() => {
     if (!searchable || !search) return options;
 
@@ -117,9 +114,7 @@ function SelectInner<T, Multiple extends boolean = false>(
   }, [options, search, searchable]);
 
   const isSelected = (val: T) => {
-    if (multiple) {
-      return Array.isArray(value) && value.includes(val);
-    }
+    if (multiple) return Array.isArray(value) && value.includes(val);
     return value === val;
   };
 
@@ -140,16 +135,16 @@ function SelectInner<T, Multiple extends boolean = false>(
 
   const hasValue = multiple ? (value as T[])?.length > 0 : value !== undefined;
 
-  /* ---------------- Handlers ---------------- */
-
+  /* Toggle dropdown */
   const toggle = () => {
     if (disabled) return;
-    setIsOpen((p) => {
-      onOpenChange?.(!p);
-      return !p;
+    setIsOpen((prev) => {
+      onOpenChange?.(!prev);
+      return !prev;
     });
   };
 
+  /* Select option */
   const selectOption = (option: SelectOption<T>) => {
     if (option.disabled) return;
 
@@ -174,102 +169,115 @@ function SelectInner<T, Multiple extends boolean = false>(
   /* ---------------- Render ---------------- */
 
   return (
-    <div ref={containerRef} className={cn("relative", className)}>
+    <div ref={containerRef} className={cn("space-y-2", className)}>
       {label && (
-        <label htmlFor={id} className="text-sm font-medium mb-2 block">
+        <label
+          htmlFor={id}
+          className={cn(
+            "text-sm font-medium leading-none",
+            error && "text-destructive"
+          )}
+        >
           {label}
         </label>
       )}
 
-      {/* Trigger */}
-      <button
-        ref={ref}
-        id={id}
-        type="button"
-        disabled={disabled}
-        onClick={toggle}
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
-        aria-controls={`${id}-listbox`}
-        className={cn(
-          "flex h-10 w-full items-center justify-between rounded-md border border-input bg-card px-3 text-sm",
-          error && "border-destructive",
-          !hasValue && "text-muted-foreground"
-        )}
-      >
-        <span className="truncate">{selectedLabel}</span>
-
-        <div className="flex items-center gap-1">
-          {clearable && hasValue && !loading && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={clearValue}
-              className="h-4 w-4"
-            >
-              <X size={12} />
-            </Button>
+      <div className="relative">
+        {/* Trigger */}
+        <button
+          ref={ref}
+          id={id}
+          type="button"
+          disabled={disabled}
+          onClick={toggle}
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
+          aria-controls={`${id}-listbox`}
+          className={cn(
+            "flex h-10 w-full items-center justify-between rounded-md border border-input bg-card px-3 text-sm",
+            error && "border-destructive",
+            !hasValue && "text-muted-foreground"
           )}
-
-          <ChevronDown
-            size={16}
-            className={cn("transition-transform", isOpen && "rotate-180")}
-          />
-        </div>
-      </button>
-
-      {/* Dropdown */}
-      {isOpen && (
-        <div
-          className="absolute z-50 mt-1 w-full rounded-md border bg-card shadow-md"
-          role="listbox"
-          id={`${id}-listbox`}
         >
-          {searchable && (
-            <div className="p-2 border-b">
-              <div className="relative">
-                <Search size={16} className="absolute left-2 top-2.5" />
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="pl-8"
-                  placeholder="Search..."
-                />
-              </div>
-            </div>
-          )}
+          <span className="truncate">{selectedLabel}</span>
 
-          <div className="max-h-60 overflow-auto">
-            {filteredOptions.length === 0 ? (
-              <div className="px-3 py-2 text-sm text-muted-foreground">
-                No options found
-              </div>
-            ) : (
-              filteredOptions.map((option) => (
-                <div
-                  key={String(option.value)}
-                  onClick={() => selectOption(option)}
-                  className={cn(
-                    "flex cursor-pointer items-center px-3 py-2 text-sm hover:bg-accent",
-                    isSelected(option.value) &&
-                      "bg-primary text-primary-foreground",
-                    option.disabled && "opacity-50 pointer-events-none"
-                  )}
-                  role="option"
-                  aria-selected={isSelected(option.value)}
-                >
-                  <span className="flex-1">{option.label}</span>
-
-                  {multiple && isSelected(option.value) && <Check size={16} />}
-                </div>
-              ))
+          <div className="flex items-center gap-1">
+            {clearable && hasValue && !loading && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={clearValue}
+                className="h-4 w-4"
+              >
+                <X size={12} />
+              </Button>
             )}
+
+            <ChevronDown
+              size={16}
+              className={cn("transition-transform", isOpen && "rotate-180")}
+            />
           </div>
-        </div>
+        </button>
+
+        {/* Dropdown */}
+        {isOpen && (
+          <div
+            className="absolute z-50 mt-1 w-full rounded-md border bg-card shadow-md"
+            role="listbox"
+            id={`${id}-listbox`}
+          >
+            {searchable && (
+              <div className="p-2 border-b">
+                <div className="relative">
+                  <Search size={16} className="absolute left-2 top-2.5" />
+                  <Input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="pl-8"
+                    placeholder="Search..."
+                  />
+                </div>
+              </div>
+            )}
+
+            <div className="max-h-60 overflow-auto">
+              {filteredOptions.length === 0 ? (
+                <div className="px-3 py-2 text-sm text-muted-foreground">
+                  No options found
+                </div>
+              ) : (
+                filteredOptions.map((option) => (
+                  <div
+                    key={String(option.value)}
+                    onClick={() => selectOption(option)}
+                    role="option"
+                    aria-selected={isSelected(option.value)}
+                    className={cn(
+                      "flex cursor-pointer items-center px-3 py-2 text-sm hover:bg-accent",
+                      isSelected(option.value) &&
+                        "bg-primary text-primary-foreground",
+                      option.disabled && "opacity-50 pointer-events-none"
+                    )}
+                  >
+                    <span className="flex-1">{option.label}</span>
+
+                    {multiple && isSelected(option.value) && (
+                      <Check size={16} />
+                    )}
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {description && (
+        <p className="text-xs text-muted-foreground">{description}</p>
       )}
 
-      {description && <p className="text-xs mt-1">{description}</p>}
-      {error && <p className="text-xs text-destructive mt-1">{error}</p>}
+      {error && <p className="text-xs text-destructive">{error}</p>}
 
       {/* Hidden native select */}
       <select
@@ -295,7 +303,7 @@ function SelectInner<T, Multiple extends boolean = false>(
   );
 }
 
-/* ------------------ Export ------------------ */
+/* ---------------- Export ---------------- */
 
 const ForwardedSelect = forwardRef(SelectInner);
 ForwardedSelect.displayName = "Select";
