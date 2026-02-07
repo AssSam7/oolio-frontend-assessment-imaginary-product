@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Icon, { type IconName } from "../common/Icon";
+import AssessmentProgressIndicator from "@/components/ui/AssessmentProgress/AssessmentProgressIndicator";
 
 type NavigationItemType = {
   label: string;
@@ -14,39 +15,15 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   const navigationItems: NavigationItemType[] = [
-    {
-      label: "Dashboard",
-      path: "/dashboard",
-      icon: "LayoutDashboard",
-    },
-    {
-      label: "Products",
-      path: "/product-details",
-      icon: "Package",
-    },
-    {
-      label: "Cart",
-      path: "/shopping-cart",
-      icon: "ShoppingCart",
-    },
-    {
-      label: "Account",
-      path: "/user-authentication",
-      icon: "User",
-    },
-    {
-      label: "E Book",
-      path: "/ebook",
-      icon: "Book",
-    },
-    {
-      label: "Library",
-      path: "/library",
-      icon: "LibraryBig",
-    },
+    { label: "Dashboard", path: "/dashboard", icon: "LayoutDashboard" },
+    { label: "Products", path: "/product-details", icon: "Package" },
+    { label: "Cart", path: "/shopping-cart", icon: "ShoppingCart" },
+    { label: "Account", path: "/user-authentication", icon: "User" },
+    { label: "E Book", path: "/ebook", icon: "Book" },
+    { label: "Library", path: "/library", icon: "LibraryBig" },
   ];
 
-  const isActivePath = (path: string) => location?.pathname === path;
+  const isActivePath = (path: string) => location.pathname === path;
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);
@@ -68,37 +45,43 @@ const Header = () => {
             </span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-2">
-            {navigationItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`
-                  relative flex items-center gap-2 px-4 py-2 rounded-md
-                  transition-all duration-250 ease-smooth
-                  ${
-                    isActivePath(item?.path)
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  }
-                `}
-              >
-                <Icon
-                  name={item.icon}
-                  size={18}
-                  color={
-                    isActivePath(item.path)
-                      ? "var(--color-primary-foreground)"
-                      : "currentColor"
-                  }
-                />
-                <span className="font-medium text-sm">{item.label}</span>
-                {isActivePath(item.path) && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent" />
-                )}
-              </Link>
-            ))}
-          </nav>
+          <div className="hidden md:flex items-center gap-4">
+            <nav className="flex items-center gap-2">
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`
+                    relative flex items-center gap-2 px-4 py-2 rounded-md
+                    transition-all duration-250 ease-smooth
+                    ${
+                      isActivePath(item.path)
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    }
+                  `}
+                >
+                  <Icon
+                    name={item.icon}
+                    size={18}
+                    color={
+                      isActivePath(item.path)
+                        ? "var(--color-primary-foreground)"
+                        : "currentColor"
+                    }
+                  />
+                  <span className="font-medium text-sm">{item.label}</span>
+
+                  {isActivePath(item.path) && (
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent" />
+                  )}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Assessment Progress */}
+            <AssessmentProgressIndicator />
+          </div>
 
           <button
             onClick={toggleMobileMenu}
@@ -109,6 +92,7 @@ const Header = () => {
           </button>
         </div>
       </header>
+
       {mobileMenuOpen && (
         <div
           className="fixed inset-0 bg-background z-[1200] md:hidden"
@@ -117,14 +101,14 @@ const Header = () => {
           <nav className="flex flex-col p-6 gap-2">
             {navigationItems.map((item) => (
               <Link
-                key={item?.path}
-                to={item?.path}
+                key={item.path}
+                to={item.path}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`
                   flex items-center justify-between px-4 py-3 rounded-md
                   transition-all duration-250 ease-smooth
                   ${
-                    isActivePath(item?.path)
+                    isActivePath(item.path)
                       ? "bg-primary text-primary-foreground"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }
@@ -142,18 +126,19 @@ const Header = () => {
                   />
                   <span className="font-medium">{item.label}</span>
                 </div>
-                {item?.problemCount && item?.problemCount > 0 && (
+
+                {item.problemCount && item.problemCount > 0 && (
                   <span
                     className={`
                       px-2 py-1 rounded text-xs font-mono
                       ${
-                        isActivePath(item?.path)
+                        isActivePath(item.path)
                           ? "bg-primary-foreground/20 text-primary-foreground"
                           : "bg-warning/20 text-warning"
                       }
                     `}
                   >
-                    {item?.problemCount} issues
+                    {item.problemCount} issues
                   </span>
                 )}
               </Link>

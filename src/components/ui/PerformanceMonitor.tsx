@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import Icon from "../common/Icon";
 
+/* Layout constants */
+const HEADER_HEIGHT = 60;
+
 type MetricStatus = "success" | "warning" | "error";
 
 interface PerformanceMetrics {
@@ -25,7 +28,6 @@ const PerformanceMonitor = () => {
 
   useEffect(() => {
     const measurePerformance = () => {
-      // ---- Modern Navigation Timing API ----
       const navEntries = performance.getEntriesByType(
         "navigation"
       ) as PerformanceNavigationTiming[];
@@ -33,12 +35,9 @@ const PerformanceMonitor = () => {
       if (!navEntries.length) return;
 
       const nav = navEntries[0];
-
       const ttfb = nav.responseStart - nav.requestStart;
 
-      // ---- Paint Timing ----
       const paintEntries = performance.getEntriesByType("paint");
-
       const firstPaint = paintEntries.find(
         (entry) => entry.name === "first-paint"
       );
@@ -55,7 +54,6 @@ const PerformanceMonitor = () => {
     measurePerformance();
 
     const interval = window.setInterval(measurePerformance, 5000);
-
     return () => window.clearInterval(interval);
   }, []);
 
@@ -79,7 +77,10 @@ const PerformanceMonitor = () => {
   });
 
   return (
-    <div className="fixed top-[76px] right-6 z-[1100]">
+    <div
+      className="fixed right-4 md:right-6 lg:right-8 z-[1100]"
+      style={{ top: HEADER_HEIGHT + 12 }}
+    >
       {/* Toggle Button */}
       <button
         onClick={() => setIsExpanded((prev) => !prev)}
@@ -87,7 +88,7 @@ const PerformanceMonitor = () => {
           flex items-center gap-2 px-3 py-2 rounded-md
           bg-card border border-border shadow-md
           transition-all duration-250 ease-smooth
-          hover:shadow-lg hover:scale-[0.98]
+          motion-safe:hover:shadow-lg motion-safe:hover:scale-[0.98]
           ${isExpanded ? "bg-muted" : ""}
         `}
         aria-label="Toggle performance monitor"
@@ -107,7 +108,7 @@ const PerformanceMonitor = () => {
 
       {/* Panel */}
       {isExpanded && (
-        <div className="absolute top-full right-0 mt-2 w-72 bg-card border border-border rounded-md shadow-lg p-4">
+        <div className="absolute top-full right-0 mt-2 w-72 bg-card border border-border rounded-md shadow-lg p-4 pointer-events-auto">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold text-foreground font-mono">
               Performance Metrics
@@ -119,14 +120,12 @@ const PerformanceMonitor = () => {
           </div>
 
           <div className="space-y-3">
-            {/* TTFB */}
             <MetricRow
               label="TTFB"
               value={`${metrics.ttfb}ms`}
               status={ttfbStatus}
             />
 
-            {/* TFP */}
             <MetricRow
               label="TFP"
               value={`${metrics.tfp}ms`}
