@@ -124,17 +124,19 @@ const ProductDetailsPage = () => {
         <div className="max-w-7xl mx-auto py-6 md:py-8">
           {/* Breadcrumb */}
 
-          <nav className="flex items-center gap-2 text-sm mb-6 overflow-x-auto">
+          <nav className="flex items-center gap-2 text-sm md:text-base mb-6 overflow-x-auto">
             <button
               onClick={() => navigate("/products")}
-              className="text-muted-foreground hover:text-foreground"
+              className="text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
             >
               Products
             </button>
 
             <Icon name="ChevronRight" size={16} />
 
-            <span className="font-medium truncate">{product.name}</span>
+            <span className="text-foreground font-medium truncate">
+              {product.name}
+            </span>
           </nav>
 
           {/* Main Layout */}
