@@ -5,14 +5,15 @@ import Icon from "@/components/common/Icon";
 
 import { useProducts } from "./hooks/useProducts";
 import { useFilteredProducts } from "./hooks/useFilteredProducts";
-import { PRODUCT_CATEGORIES } from "./constants/product.constants";
+import {
+  PRODUCT_CATEGORIES,
+  type Product,
+  type ProductFilters,
+} from "@/domain/products";
 import { useAssessmentProgress } from "@/components/ui/AssessmentProgress/assessmentProgress.context";
 
 import FilterToolbar from "./components/FilterToolbar";
 import ProductGrid from "./components/ProductGrid";
-
-import type { Product } from "@/types";
-import type { ProductFilters } from "./types/dashboard.types";
 
 const DashboardPage = () => {
   /* React Router Variables */
@@ -136,7 +137,7 @@ const DashboardPage = () => {
               </span>
             </div>
 
-            {filteredProducts.length && (
+            {filteredProducts && (
               <ProductGrid
                 products={filteredProducts}
                 onProductClick={handleProductClick}

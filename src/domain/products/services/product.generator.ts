@@ -1,8 +1,8 @@
-import type { Product } from "@/types";
 import {
-  PRODUCT_CATEGORIES,
   PRODUCT_NAMES,
+  PRODUCT_CATEGORIES,
 } from "../constants/product.constants";
+import type { Product } from "../types/product.types";
 
 const seededRandom = (seed: number) => {
   const x = Math.sin(seed) * 10000;
