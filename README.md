@@ -228,19 +228,19 @@ Demonstrates real-world CI/CD pipeline experience and automation.
 
 ### Product Details
 
-![Product Details](docs/screenshots/product-details-desktop-1.png)
-![Product Details](docs/screenshots/product-details-desktop-2.png)
-![Product Details](docs/screenshots/product-details-desktop-3.png)
-![Product Details](docs/screenshots/product-details-desktop-4.png)
-![Product Details](docs/screenshots/product-details-desktop-5.png)
+![Product Details](docs/screenshots/productdetails-desktop-1.png)
+![Product Details](docs/screenshots/productdetails-desktop-2.png)
+![Product Details](docs/screenshots/productdetails-desktop-3.png)
+![Product Details](docs/screenshots/productdetails-desktop-4.png)
+![Product Details](docs/screenshots/productdetails-desktop-5.png)
 
 ### Product Details Mobile 📱
 
-![Product Details Mobile](docs/screenshots/product-details-mobile-1.png)
-![Product Details Mobile](docs/screenshots/product-details-mobile-2.png)
-![Product Details Mobile](docs/screenshots/product-details-mobile-3.png)
-![Product Details Mobile](docs/screenshots/product-details-mobile-4.png)
-![Product Details Mobile](docs/screenshots/product-details-mobile-5.png)
+![Product Details Mobile](docs/screenshots/productdetails-mobile-1.png)
+![Product Details Mobile](docs/screenshots/productdetails-mobile-2.png)
+![Product Details Mobile](docs/screenshots/productdetails-mobile-3.png)
+![Product Details Mobile](docs/screenshots/productdetails-mobile-4.png)
+![Product Details Mobile](docs/screenshots/productdetails-mobile-5.png)
 
 ---
 
