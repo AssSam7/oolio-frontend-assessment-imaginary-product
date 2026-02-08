@@ -34,6 +34,19 @@ const stateOptions = [
   { value: "IL", label: "Illinois" },
 ];
 
+const errorsMap = {
+  ERR_001: "Full Name is required.",
+  ERR_002: "Email Address is required.",
+  ERR_003: "Phone Number is required.",
+  ERR_004: "Street Address is required.",
+  ERR_005: "City is required.",
+  ERR_006: "State is required.",
+  ERR_007: "ZIP Code is required.",
+  ERR_008: "Card Number is required.",
+  ERR_009: "Expiry Date is required.",
+  ERR_010: "CVV is required.",
+};
+
 const CheckoutModal = ({ isOpen, onClose, total }: CheckoutModalProps) => {
   /* ---------- Local UI State ---------- */
 
@@ -58,16 +71,16 @@ const CheckoutModal = ({ isOpen, onClose, total }: CheckoutModalProps) => {
   const validateForm = () => {
     const newErrors: CheckoutErrors = {};
 
-    if (!formData.fullName) newErrors.fullName = "ERR_001";
-    if (!formData.email) newErrors.email = "ERR_002";
-    if (!formData.phone) newErrors.phone = "ERR_003";
-    if (!formData.address) newErrors.address = "ERR_004";
-    if (!formData.city) newErrors.city = "ERR_005";
-    if (!formData.state) newErrors.state = "ERR_006";
-    if (!formData.zipCode) newErrors.zipCode = "ERR_007";
-    if (!formData.cardNumber) newErrors.cardNumber = "ERR_008";
-    if (!formData.expiryDate) newErrors.expiryDate = "ERR_009";
-    if (!formData.cvv) newErrors.cvv = "ERR_010";
+    if (!formData.fullName) newErrors.fullName = errorsMap.ERR_001;
+    if (!formData.email) newErrors.email = errorsMap.ERR_002;
+    if (!formData.phone) newErrors.phone = errorsMap.ERR_003;
+    if (!formData.address) newErrors.address = errorsMap.ERR_004;
+    if (!formData.city) newErrors.city = errorsMap.ERR_005;
+    if (!formData.state) newErrors.state = errorsMap.ERR_006;
+    if (!formData.zipCode) newErrors.zipCode = errorsMap.ERR_007;
+    if (!formData.cardNumber) newErrors.cardNumber = errorsMap.ERR_008;
+    if (!formData.expiryDate) newErrors.expiryDate = errorsMap.ERR_009;
+    if (!formData.cvv) newErrors.cvv = errorsMap.ERR_010;
 
     setErrors(newErrors);
 

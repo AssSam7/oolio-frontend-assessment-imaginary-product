@@ -30,7 +30,7 @@ const ProductsHeader = ({
       {/* ---------- Left Section ---------- */}
 
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-foreground">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
           All Products
         </h1>
 

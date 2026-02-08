@@ -1,21 +1,30 @@
+import type { ProductDetails } from "@/domain/products/types/productDetails.types";
+
 export interface CartConfiguration {
   color?: string;
   size?: string;
 }
 
-export interface CartItem {
-  id: string;
-  name: string;
-  category: string;
+/*
+  CartItem derives required fields from ProductDetails
+  → Prevents duplication
+  → Keeps cart always aligned with product domain
+*/
 
-  price: number;
-  discount?: number;
-
+export interface CartItem
+  extends Pick<
+    ProductDetails,
+    | "id"
+    | "name"
+    | "category"
+    | "price"
+    | "discount"
+    | "image"
+    | "imageAlt"
+    | "inStock"
+    | "stockCount"
+  > {
   quantity: number;
-
-  image?: string;
-  imageAlt?: string;
-
   configuration?: CartConfiguration;
 }
 

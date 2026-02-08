@@ -18,12 +18,13 @@ interface Props {
 /*
   Improvements:
 
-  1. Prevented invalid quantity typing edge cases
-  2. Removed incorrect CartItem → addItem type usage
-  3. Added auto increment toggle instead of permanent interval
-  4. Memoized subtotal for render performance
-  5. Stabilized quantity diff logic
-  6. Added safe cleanup for interval
+  1. Added stockCount enforcement across ALL entry points
+  2. Prevent manual typing beyond stock
+  3. Disabled + button when stock reached
+  4. Auto increment now auto-stops at stock limit
+  5. Added max attribute to quantity input
+  6. Memoized base item snapshot
+  7. Safe interval cleanup
 */
 
 const CartItemRow = ({ item }: Props) => {
@@ -36,6 +37,10 @@ const CartItemRow = ({ item }: Props) => {
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  /* ---------------- Derived Flags ---------------- */
+
+  const reachedStockLimit = item.quantity >= item.stockCount;
+
   /* ---------------- Base Item Mapper ---------------- */
 
   const baseItem = useMemo(
@@ -47,6 +52,8 @@ const CartItemRow = ({ item }: Props) => {
       discount: item.discount,
       image: item.image,
       imageAlt: item.imageAlt,
+      inStock: item.inStock,
+      stockCount: item.stockCount,
       configuration: item.configuration,
     }),
     [item]
@@ -57,7 +64,10 @@ const CartItemRow = ({ item }: Props) => {
   const handleQuantityChange = (value: number) => {
     if (!Number.isFinite(value) || value <= 0) return;
 
-    const diff = value - item.quantity;
+    // Clamp value within stock
+    const clampedValue = Math.min(value, item.stockCount);
+
+    const diff = clampedValue - item.quantity;
 
     if (diff > 0) {
       addItem(baseItem, diff);
@@ -81,7 +91,27 @@ const CartItemRow = ({ item }: Props) => {
       return;
     }
 
+    if (item.quantity >= item.stockCount) return;
+
     intervalRef.current = setInterval(() => {
+      const current = useCartStore
+        .getState()
+        .items.find(
+          (i) =>
+            i.id === item.id &&
+            JSON.stringify(i.configuration ?? {}) ===
+              JSON.stringify(item.configuration ?? {})
+        );
+
+      if (!current) return;
+
+      if (current.quantity >= current.stockCount) {
+        clearInterval(intervalRef.current!);
+        intervalRef.current = null;
+        setIsAutoRunning(false);
+        return;
+      }
+
       increaseQty(item.id, item.configuration);
     }, 1000);
 
@@ -91,12 +121,10 @@ const CartItemRow = ({ item }: Props) => {
   /* ---------------- Cleanup ---------------- */
 
   useEffect(() => {
-    if (!isAutoRunning) return;
-
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [isAutoRunning]);
+  }, []);
 
   /* ---------------- Derived Values ---------------- */
 
@@ -153,6 +181,7 @@ const CartItemRow = ({ item }: Props) => {
               type="number"
               value={item.quantity}
               min="1"
+              max={item.stockCount}
               className="w-16 md:w-20 text-center"
               onChange={(e) => {
                 const parsed = Number(e.target.value);
@@ -167,6 +196,7 @@ const CartItemRow = ({ item }: Props) => {
               size="sm"
               iconName="Plus"
               onClick={() => increaseQty(item.id, item.configuration)}
+              disabled={reachedStockLimit}
             />
           </div>
 
@@ -177,6 +207,7 @@ const CartItemRow = ({ item }: Props) => {
             iconName="Zap"
             iconPosition="left"
             onClick={toggleAutoIncrement}
+            disabled={reachedStockLimit}
             className="text-warning"
           >
             {isAutoRunning ? "Stop Auto" : "Auto +1/sec"}
@@ -192,6 +223,13 @@ const CartItemRow = ({ item }: Props) => {
             </span>
           </div>
         </div>
+
+        {/* Stock Indicator (UX Boost) */}
+        {item.stockCount - item.quantity <= 3 && (
+          <p className="text-xs text-warning">
+            Only {item.stockCount - item.quantity} left in stock
+          </p>
+        )}
 
         {/* Footer */}
         <div className="flex items-center justify-between pt-2 border-t border-border">

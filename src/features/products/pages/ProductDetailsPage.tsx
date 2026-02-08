@@ -19,8 +19,8 @@ import { useProductDetails } from "../hooks/ProductDetails/useProductDetails";
 import { useProductReviews } from "../hooks/ProductDetails/useProductReviews";
 import { useRelatedProducts } from "../hooks/ProductDetails/useRelatedProducts";
 
-import type { ProductDetails } from "@/domain/products/types/productDetails.types";
 import { useProductsQuery } from "../hooks/useProductsQuery";
+import type { ProductDetails } from "@/domain/products/types/productDetails.types";
 
 type TabConfig = {
   id: "overview" | "specifications" | "reviews";

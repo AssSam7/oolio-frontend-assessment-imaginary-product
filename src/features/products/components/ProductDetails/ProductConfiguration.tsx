@@ -4,6 +4,8 @@ import Icon from "@/components/common/Icon";
 
 import type { ProductDetails } from "@/domain/products/types/productDetails.types";
 import Input from "@/components/ui/Input";
+import { useCartStore } from "@/domain/cart/store/cart.store";
+import { mapProductToCartItem } from "@/domain/cart/mappers/cart.mapper";
 
 interface ProductConfigurationProps {
   product: ProductDetails;
@@ -42,6 +44,9 @@ const ProductConfiguration = ({
     sizes[0]
   );
 
+  /* ---------- Zustland Store ---------- */
+  const addItem = useCartStore((state) => state.addItem);
+
   /* ---------- Quantity Controls ---------- */
 
   const incrementQuantity = () => {
@@ -56,6 +61,15 @@ const ProductConfiguration = ({
 
   const handleAddToCart = () => {
     if (!product.inStock) return;
+
+    const configuration = {
+      color: selectedColor,
+      size: selectedSize,
+    };
+
+    const cartItem = mapProductToCartItem(product, configuration);
+
+    addItem(cartItem, quantity);
 
     onAddToCart({
       ...product,
