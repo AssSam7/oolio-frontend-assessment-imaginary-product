@@ -223,6 +223,10 @@ Demonstrates real-world CI/CD pipeline experience and automation.
 ![Product Details Mobile](docs/screenshots/productdetails-mobile-4.png)
 ![Product Details Mobile](docs/screenshots/productdetails-mobile-5.png)
 
+### Jenkins CI/CD Pipeline
+
+![Jenkins Pipeline](docs/screenshots/jenkins-pipeline.png)
+
 ---
 
 ## 👨‍💻 Author (Base provided by Oolio)
