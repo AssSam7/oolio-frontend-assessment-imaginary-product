@@ -136,7 +136,7 @@ const UserAuthentication = () => {
         <meta name="description" content="Authentication screen" />
       </Helmet>
 
-      <div className="min-h-screen bg-backgroundx">
+      <div className="min-h-screen">
         <div className="container mx-auto px-4 py-8 md:py-12 lg:py-16">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
@@ -161,7 +161,7 @@ const UserAuthentication = () => {
 
                 {/* ---------- Mock Credentials ---------- */}
 
-                <div className="bg-card border border-border rounded-lg p-4 md:p-6 space-y-3">
+                <div className="glass bg-card border border-border rounded-lg p-4 md:p-6 space-y-3">
                   <div className="flex items-center gap-2">
                     <Icon name="Key" size={18} color="var(--color-accent)" />
                     <h3 className="text-base md:text-lg font-semibold">

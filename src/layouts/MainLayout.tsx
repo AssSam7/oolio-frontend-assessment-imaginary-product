@@ -8,6 +8,9 @@ import SnackbarContainer from "@/components/ui/SnackbarContainer";
 const MainLayout = () => {
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Gradient Background */}
+      <div className="fixed inset-0 -z-10 bg-app-gradient" />
+
       <AppHeader />
       <PerformanceMonitor />
 

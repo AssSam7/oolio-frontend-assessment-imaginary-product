@@ -86,7 +86,7 @@ const PerformanceMonitor = () => {
         onClick={() => setIsExpanded((prev) => !prev)}
         className={`
           flex items-center gap-2 px-3 py-2 rounded-md
-          bg-card border border-border shadow-md
+          bg-card glass shadow-md z-[1000]  border border-border
           transition-all duration-250 ease-smooth
           motion-safe:hover:shadow-lg motion-safe:hover:scale-[0.98]
           ${isExpanded ? "bg-muted" : ""}

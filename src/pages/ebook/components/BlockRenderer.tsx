@@ -69,7 +69,7 @@ const BlockRenderer = ({
 
   if (isEditing) {
     return (
-      <div className="relative border rounded-lg p-4 bg-card">
+      <div className="relative border rounded-lg p-4">
         <textarea
           autoFocus
           value={draftContent}

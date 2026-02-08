@@ -101,7 +101,7 @@ const ProductDetailsPage = () => {
 
   if (isLoading || !product) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen">
         <div className="pt-[76px] px-4 md:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto py-8 animate-pulse space-y-6">
             <div className="h-8 bg-muted rounded w-1/3" />
@@ -122,7 +122,7 @@ const ProductDetailsPage = () => {
   /* ---------------- Render ---------------- */
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <div className="px-4 md:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto py-6 md:py-8">
           {/* Breadcrumb */}

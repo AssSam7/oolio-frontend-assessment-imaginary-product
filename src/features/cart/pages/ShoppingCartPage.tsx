@@ -65,7 +65,7 @@ const ShoppingCartPage = () => {
   /* ---------------- Render ---------------- */
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <main className="pt-4 px-4 md:px-6 lg:px-8 pb-10">
         <div className="max-w-7xl mx-auto">
           {/* Header */}

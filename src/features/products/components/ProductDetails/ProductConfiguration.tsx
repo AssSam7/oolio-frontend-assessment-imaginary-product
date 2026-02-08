@@ -181,6 +181,7 @@ const ProductConfiguration = ({
               }
             }}
             className="w-16 h-10 text-center bg-background border border-border rounded-md font-mono"
+            disabled={isItemPresentInCart}
           />
 
           <button

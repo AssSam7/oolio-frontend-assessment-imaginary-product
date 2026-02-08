@@ -36,7 +36,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 h-[60px] bg-card shadow-md z-[1000] border-b border-border">
+      <header className="fixed top-0 left-0 right-0 h-[60px] bg-card glass shadow-md z-[1000] border-b border-border">
         <div className="h-full flex items-center justify-between px-6">
           <Link
             to="/dashboard"
@@ -100,7 +100,7 @@ const Header = () => {
 
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-background z-[1200] md:hidden"
+          className="fixed inset-0 z-[1200] md:hidden"
           style={{ top: "60px" }}
         >
           <nav className="flex flex-col p-6 gap-2">

@@ -67,7 +67,7 @@ const EbookPage = () => {
   /* ---------------- Render ---------------- */
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <main className="pb-12">
         <div className="max-w-5xl mx-auto px-4">
           {/* Header */}
