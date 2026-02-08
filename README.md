@@ -86,6 +86,7 @@ const Example = () => {
     </>
   );
 };
+```
 
 ## 📦 Features Implemented
 
@@ -276,6 +277,7 @@ Demonstrates real-world CI/CD pipeline experience and automation.
 ---
 
 ## 📸 App Screenshots
+
 > Limited to only few pages due to the large number of pages and variations, but the live demo has the full experience!
 
 ### Dashboard
@@ -321,4 +323,7 @@ Demonstrates real-world CI/CD pipeline experience and automation.
 ## 👨‍💻 Author (Base provided by Oolio)
 
 **Aslam Mohammed**
+
+```
+
 ```
