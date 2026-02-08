@@ -1,11 +1,13 @@
 import { useState } from "react";
 import Button from "@/components/ui/Button";
 import Icon from "@/components/common/Icon";
-
-import type { ProductDetails } from "@/domain/products/types/productDetails.types";
 import Input from "@/components/ui/Input";
+import { useNavigate } from "react-router-dom";
+
 import { useCartStore } from "@/domain/cart/store/cart.store";
 import { mapProductToCartItem } from "@/domain/cart/mappers/cart.mapper";
+
+import type { ProductDetails } from "@/domain/products/types/productDetails.types";
 
 interface ProductConfigurationProps {
   product: ProductDetails;
@@ -19,24 +21,24 @@ interface ProductConfigurationProps {
 }
 
 /*
- * Improvements:
- * - Removed unused ref
- * - Properly reset ALL config when product changes
- * - Safe handling for stockCount = 0
- * - Defensive array guards
- */
+  React 18 Strict Mode Safe
+  State resets via KEY remount
+*/
 
 const ProductConfiguration = ({
   product,
   onAddToCart,
 }: ProductConfigurationProps) => {
+  const navigate = useNavigate();
+
   const colors = product.colors ?? [];
   const sizes = product.sizes ?? [];
   const stockCount = product.stockCount ?? 0;
+  const inStock = product.inStock ?? false;
 
   /* ---------- Local State ---------- */
 
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState<string | undefined>(
     colors[0]
   );
@@ -44,8 +46,12 @@ const ProductConfiguration = ({
     sizes[0]
   );
 
-  /* ---------- Zustland Store ---------- */
-  const addItem = useCartStore((state) => state.addItem);
+  /* ---------- Cart Store ---------- */
+
+  const addItem = useCartStore((s) => s.addItem);
+  const cartItems = useCartStore((s) => s.items);
+
+  const isItemPresentInCart = cartItems.some((item) => item.id === product.id);
 
   /* ---------- Quantity Controls ---------- */
 
@@ -61,6 +67,11 @@ const ProductConfiguration = ({
 
   const handleAddToCart = () => {
     if (!product.inStock) return;
+
+    if (isItemPresentInCart) {
+      navigate("/shopping-cart");
+      return;
+    }
 
     const configuration = {
       color: selectedColor,
@@ -78,6 +89,8 @@ const ProductConfiguration = ({
       selectedSize,
     });
   };
+
+  /* ---------- Render ---------- */
 
   return (
     <div className="space-y-4 md:space-y-6 bg-card border border-border rounded-lg p-4 md:p-6">
@@ -124,7 +137,7 @@ const ProductConfiguration = ({
                 key={size}
                 onClick={() => setSelectedSize(size)}
                 className={`
-                  p-2 rounded-md border-2 transition-all font-medium
+                  px-4 py-2 rounded-md border-2 transition-all text-sm font-medium
                   ${
                     selectedSize === size
                       ? "border-primary bg-primary/10 text-primary"
@@ -149,7 +162,7 @@ const ProductConfiguration = ({
         <div className="flex items-center gap-3">
           <button
             onClick={decrementQuantity}
-            disabled={quantity < 1}
+            disabled={quantity <= 1}
             className="w-10 h-10 flex items-center justify-center bg-muted border border-border rounded-md disabled:opacity-50"
           >
             <Icon name="Minus" size={18} />
@@ -172,7 +185,7 @@ const ProductConfiguration = ({
 
           <button
             onClick={incrementQuantity}
-            disabled={quantity >= (stockCount || 1)}
+            disabled={quantity <= (stockCount || 1)}
             className="w-10 h-10 flex items-center justify-center bg-muted border border-border rounded-md disabled:opacity-50"
           >
             <Icon name="Plus" size={18} />
@@ -180,7 +193,7 @@ const ProductConfiguration = ({
         </div>
 
         <p className="text-xs text-muted-foreground mt-2">
-          {stockCount > 0
+          {stockCount > 0 && inStock
             ? `Maximum ${stockCount} items available`
             : "Out of stock"}
         </p>
@@ -196,7 +209,7 @@ const ProductConfiguration = ({
           onClick={handleAddToCart}
           disabled={!product.inStock}
         >
-          Add to Cart
+          {isItemPresentInCart ? "Go to Cart" : "Add to Cart"}
         </Button>
       </div>
     </div>

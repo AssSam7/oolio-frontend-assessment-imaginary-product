@@ -21,6 +21,7 @@ import { useRelatedProducts } from "../hooks/ProductDetails/useRelatedProducts";
 
 import { useProductsQuery } from "../hooks/useProductsQuery";
 import type { ProductDetails } from "@/domain/products/types/productDetails.types";
+import { useSnackbarStore } from "@/domain/ui/store/snackbar.store";
 
 type TabConfig = {
   id: "overview" | "specifications" | "reviews";
@@ -42,6 +43,7 @@ const ProductDetailsPage = () => {
 
   const { markProblemIdentified, markProblemResolved } =
     useAssessmentProgress();
+  const showSnackbar = useSnackbarStore((s) => s.show);
 
   const [activeTab, setActiveTab] = useState<
     "overview" | "specifications" | "reviews"
@@ -89,9 +91,10 @@ const ProductDetailsPage = () => {
   const handleAddToCart = (
     configuredProduct: ProductDetails & { quantity: number }
   ) => {
-    alert(
-      `Added ${configuredProduct.quantity}x ${configuredProduct.name} to cart`
-    );
+    showSnackbar({
+      variant: "success",
+      message: `Added ${configuredProduct.quantity} x ${configuredProduct.name} to cart!`,
+    });
   };
 
   /* ---------------- Loading ---------------- */
