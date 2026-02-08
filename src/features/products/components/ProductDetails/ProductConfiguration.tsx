@@ -162,7 +162,7 @@ const ProductConfiguration = ({
         <div className="flex items-center gap-3">
           <button
             onClick={decrementQuantity}
-            disabled={quantity <= 1}
+            disabled={isItemPresentInCart || quantity <= 1}
             className="w-10 h-10 flex items-center justify-center bg-muted border border-border rounded-md disabled:opacity-50"
           >
             <Icon name="Minus" size={18} />
@@ -185,7 +185,7 @@ const ProductConfiguration = ({
 
           <button
             onClick={incrementQuantity}
-            disabled={quantity <= (stockCount || 1)}
+            disabled={isItemPresentInCart || quantity >= stockCount}
             className="w-10 h-10 flex items-center justify-center bg-muted border border-border rounded-md disabled:opacity-50"
           >
             <Icon name="Plus" size={18} />
