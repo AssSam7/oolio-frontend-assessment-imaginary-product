@@ -68,26 +68,7 @@ A modern e-commerce product browsing and product details experience built using 
 
 The project follows a **Domain-Driven Modular Architecture**.
 
-src/
-├── domain/
-│ ├── products/
-│ │ ├── types
-│ │ ├── services
-│ │ ├── generators
-│ │ └── utils
-│
-├── features/
-│ ├── products/
-│ │ ├── hooks
-│ │ ├── components
-│ │ └── pages
-│
-├── components/
-│ ├── common
-│ └── ui
-│
-├── routes/
-└── pages/
+![Architecture Overview](docs/images/architecture-overview.png)
 
 ---
 
