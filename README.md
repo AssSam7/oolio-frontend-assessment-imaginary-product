@@ -323,7 +323,3 @@ Demonstrates real-world CI/CD pipeline experience and automation.
 ## 👨‍💻 Author (Base provided by Oolio)
 
 **Aslam Mohammed**
-
-```
-
-```
