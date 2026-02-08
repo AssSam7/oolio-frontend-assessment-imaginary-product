@@ -123,6 +123,33 @@ const Example = () => {
 - Lightweight in-memory caching
 - Lazy loaded routes
 
+### 📘 E-Book Rendering Engine
+
+- Large dataset block rendering (500+ blocks)
+- Editable content blocks
+- Drag & drop block reordering
+- Custom block action callbacks
+- Performance optimized rendering strategy
+
+---
+
+### 🔐 Authentication Module
+
+- Login / Register flows
+- Social authentication simulation
+- Toast-based async feedback
+- Form validation with UX safeguards
+
+---
+
+### ⚡ Rendering Performance Strategy
+
+- Avoided synchronous UI blocking loops
+- Controlled React Strict Mode safe state updates
+- Memoized heavy derived computations
+- Lazy block initialization
+- IntersectionObserver powered rendering
+
 ---
 
 ## 🧠 Architecture Overview
@@ -248,7 +275,7 @@ Demonstrates real-world CI/CD pipeline experience and automation.
 
 ---
 
-## 📸 Screenshots
+## 📸 App Screenshots
 
 ### Dashboard
 
