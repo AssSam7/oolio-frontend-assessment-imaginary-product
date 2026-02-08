@@ -82,6 +82,33 @@ const CheckoutModal = ({ isOpen, onClose, total }: CheckoutModalProps) => {
     if (!formData.expiryDate) newErrors.expiryDate = errorsMap.ERR_009;
     if (!formData.cvv) newErrors.cvv = errorsMap.ERR_010;
 
+    if (formData.fullName !== "" && formData.fullName.length < 3)
+      newErrors.fullName = "Full Name must be at least 3 characters.";
+    if (formData.email !== "" && !/\S+@\S+\.\S+/.test(formData.email))
+      newErrors.email = "Email Address is invalid.";
+    if (formData.phone !== "" && !/^\d{10}$/.test(formData.phone))
+      newErrors.phone = "Phone Number must be exactly 10 digits.";
+    if (
+      formData.phone !== "" &&
+      formData.phone.length === 10 &&
+      !/^([6-9]\d{9})$/.test(formData.phone)
+    )
+      newErrors.phone = "Invalid Phone Number.";
+
+    if (formData.cardNumber !== "" && !/^\d{16}$/.test(formData.cardNumber))
+      newErrors.cardNumber = "Card Number must be exactly 16 digits.";
+    if (
+      formData.expiryDate !== "" &&
+      !/^(0[1-9]|1[0-2])\/\d{2}$/.test(formData.expiryDate)
+    )
+      newErrors.expiryDate = "Expiry Date must be in the format MM/YY.";
+    if (formData.cvv !== "" && !/^\d{3}$/.test(formData.cvv))
+      newErrors.cvv = "CVV must be exactly 3 digits.";
+    if (formData.zipCode !== "" && !/^\d{5}$/.test(formData.zipCode))
+      newErrors.zipCode = "ZIP Code must be exactly 5 digits.";
+    if (formData.city !== "" && formData.city.length < 3)
+      newErrors.city = "City must be at least 3 characters.";
+
     setErrors(newErrors);
 
     return Object.keys(newErrors).length === 0;
@@ -247,6 +274,7 @@ const CheckoutModal = ({ isOpen, onClose, total }: CheckoutModalProps) => {
             </h3>
 
             <Input
+              type="number"
               label="Card Number"
               value={formData.cardNumber}
               onChange={(e) => handleChange("cardNumber", e.target.value)}
@@ -265,6 +293,7 @@ const CheckoutModal = ({ isOpen, onClose, total }: CheckoutModalProps) => {
               />
 
               <Input
+                type="number"
                 label="CVV"
                 value={formData.cvv}
                 onChange={(e) => handleChange("cvv", e.target.value)}
