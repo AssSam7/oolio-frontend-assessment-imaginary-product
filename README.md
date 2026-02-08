@@ -1,75 +1,249 @@
-# React + TypeScript + Vite
+# 🛍️ Imaginary Product Store — Frontend Assessment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern e-commerce product browsing and product details experience built using **React + TypeScript + Vite** with a scalable domain-driven architecture and CI/CD automation.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## React Compiler
+👉 https://oolio-frontend-assessment-aslam-sol.vercel.app/
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+---
 
-Note: This will impact Vite dev & build performances.
+## 🧱 Tech Stack
 
-## Expanding the ESLint configuration
+| Layer            | Technology                     |
+| ---------------- | ------------------------------ |
+| Framework        | React 18                       |
+| Language         | TypeScript                     |
+| Build Tool       | Vite                           |
+| Routing          | React Router                   |
+| Styling          | Tailwind CSS                   |
+| State/Data       | Custom Hooks + Domain Services |
+| CI/CD            | Jenkins + Vercel               |
+| Deployment       | Vercel                         |
+| Containerization | Docker                         |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📦 Features Implemented
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 🏪 Product Listing
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Search and filter products
+- Sorting functionality
+- Pagination simulation
+- Deterministic product generation
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 📄 Product Details
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Image gallery with navigation
+- Product configuration (color / size / quantity)
+- Dynamic specifications
+- Customer reviews generation
+- Related product suggestions
+
+---
+
+### 📊 Assessment Progress Tracker
+
+- Tracks resolved issues across pages
+- Route-aware progress visualization
+- Context-based global state
+
+---
+
+### ⚙️ Performance Optimizations
+
+- Memoized selectors
+- Deterministic seeded data generation
+- Lightweight in-memory caching
+- Lazy loaded routes
+
+---
+
+## 🧠 Architecture Overview
+
+The project follows a **Domain-Driven Modular Architecture**.
+
+src/
+├── domain/
+│ ├── products/
+│ │ ├── types
+│ │ ├── services
+│ │ ├── generators
+│ │ └── utils
+│
+├── features/
+│ ├── products/
+│ │ ├── hooks
+│ │ ├── components
+│ │ └── pages
+│
+├── components/
+│ ├── common
+│ └── ui
+│
+├── routes/
+└── pages/
+
+---
+
+## 🧩 Design Principles
+
+### Domain Isolation
+
+Business logic is separated from UI rendering.
+
+---
+
+### Deterministic Mock Data
+
+Products, reviews, and details are generated using seeded randomness to maintain consistent UI.
+
+---
+
+### Hook-Based Data Layer
+
+Custom hooks act as data controllers, improving testability and reusability.
+
+---
+
+## ⚙️ CI/CD Pipeline
+
+### Pipeline Flow
+
+GitHub Push
+↓
+GitHub Webhook
+↓
+Jenkins Pipeline
+↓
+Build + Test
+↓
+Vercel Deployment
+
+---
+
+### CI/CD Tools
+
+- Jenkins running inside Docker
+- GitHub Webhook integration
+- ngrok tunnel for local Jenkins
+- Vercel CLI deployment
+- Credential management via Jenkins
+
+---
+
+## 🐳 Jenkins Pipeline Stages
+
+1. Checkout source code
+2. Install dependencies
+3. Build Vite application
+4. Deploy to Vercel
+
+---
+
+## 🛠️ Running Locally
+
+### Install Dependencies
+
+npm install
+
+---
+
+### Start Development Server
+
+npm run dev
+
+---
+
+### Build Project
+
+npm run build
+
+---
+
+## 📁 Important Decisions
+
+### Why Domain Structure?
+
+Improves scalability and testability by separating UI from business logic.
+
+---
+
+### Why Seeded Generators?
+
+Ensures consistent mock data across renders without needing a backend.
+
+---
+
+### Why Jenkins Instead of Only Vercel?
+
+Demonstrates real-world CI/CD pipeline experience and automation.
+
+---
+
+## ✨ Bonus Implementations
+
+- Dockerized Jenkins setup
+- Automated GitHub webhook deployment
+- Route-aware progress tracking system
+- Reusable component library
+- Fully typed domain layer
+
+---
+
+## 📌 Future Improvements
+
+- Add unit testing
+- Add integration testing
+- Implement real API integration
+- Add authentication flows
+- Add analytics and performance monitoring
+
+---
+
+## 📸 Screenshots
+
+### Dashboard
+
+![Dashboard](docs/screenshots/dashboard-desktop.png)
+
+### Dashboard Mobile 📱
+
+![Dashboard Mobile](docs/screenshots/dashboard-mobile-1.png)
+![Dashboard Mobile](docs/screenshots/dashboard-mobile-2.png)
+
+### Products
+
+![Products](docs/screenshots/products-desktop.png)
+
+### Poducts Mobile 📱
+
+![Products Mobile](docs/screenshots/products-mobile-1.png)
+![Products Mobile](docs/screenshots/products-mobile-2.png)
+
+### Product Details
+
+![Product Details](docs/screenshots/product-details-desktop-1.png)
+![Product Details](docs/screenshots/product-details-desktop-2.png)
+![Product Details](docs/screenshots/product-details-desktop-3.png)
+![Product Details](docs/screenshots/product-details-desktop-4.png)
+![Product Details](docs/screenshots/product-details-desktop-5.png)
+
+### Product Details Mobile 📱
+
+![Product Details Mobile](docs/screenshots/product-details-mobile-1.png)
+![Product Details Mobile](docs/screenshots/product-details-mobile-2.png)
+![Product Details Mobile](docs/screenshots/product-details-mobile-3.png)
+![Product Details Mobile](docs/screenshots/product-details-mobile-4.png)
+![Product Details Mobile](docs/screenshots/product-details-mobile-5.png)
+
+---
+
+## 👨‍💻 Author (Base provided by Oolio)
+
+**Aslam Mohammed**
