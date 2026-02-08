@@ -1,5 +1,1 @@
-const UserAuthenticationPage = () => {
-  return <div>User Authentication goes here!</div>;
-};
-
-export default UserAuthenticationPage;
+export { default } from "@/features/auth/pages/UserAuthenticationPage";

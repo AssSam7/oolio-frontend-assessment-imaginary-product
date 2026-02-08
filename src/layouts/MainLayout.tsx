@@ -3,6 +3,7 @@ import AppHeader from "@/components/ui/AppHeader";
 import { Suspense } from "react";
 import PageLoader from "@/components/common/PageLoader";
 import PerformanceMonitor from "@/components/ui/PerformanceMonitor";
+import SnackbarContainer from "@/components/ui/SnackbarContainer";
 
 const MainLayout = () => {
   return (
@@ -15,6 +16,9 @@ const MainLayout = () => {
           <Outlet />
         </Suspense>
       </main>
+
+      {/* Global Snackbar Layer */}
+      <SnackbarContainer />
     </div>
   );
 };
