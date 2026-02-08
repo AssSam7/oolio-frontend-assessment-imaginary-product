@@ -12,19 +12,80 @@ A modern e-commerce product browsing and product details experience built using 
 
 ## 🧱 Tech Stack
 
-| Layer            | Technology                     |
-| ---------------- | ------------------------------ |
-| Framework        | React 18                       |
-| Language         | TypeScript                     |
-| Build Tool       | Vite                           |
-| Routing          | React Router                   |
-| Styling          | Tailwind CSS                   |
-| State/Data       | Custom Hooks + Domain Services |
-| CI/CD            | Jenkins + Vercel               |
-| Deployment       | Vercel                         |
-| Containerization | Docker                         |
+| Layer            | Technology                               |
+| ---------------- | ---------------------------------------- |
+| Framework        | React 18                                 |
+| Language         | TypeScript                               |
+| Build Tool       | Vite                                     |
+| Routing          | React Router                             |
+| Styling          | Tailwind CSS                             |
+| State/Data       | Zustand + Custom Hooks + Domain Services |
+| CI/CD            | Jenkins + Vercel                         |
+| Deployment       | Vercel                                   |
+| Containerization | Docker                                   |
 
 ---
+
+## 📚 Reusable Component & Utility Library
+
+This project leverages a custom published npm package:
+
+### 👉 **@aslam-dev/my-lib**
+
+A reusable frontend utility and component library created to demonstrate scalable frontend engineering practices.
+
+---
+
+### ✨ Purpose
+
+The library demonstrates:
+
+- Component reusability across applications
+- Encapsulation of shared business utilities
+- Independent versioning and distribution via npm
+- Strong TypeScript public API design
+- Performance-focused UI components
+- Real-world modular frontend architecture
+
+---
+
+### 📦 Library Features
+
+#### Utilities
+
+- Deterministic date formatting helpers
+- Relative time calculations
+- Phone number parsing & validation utilities
+- Data transformation helpers (lodash wrappers)
+
+---
+
+#### Components
+
+- `Note` → Lightweight reusable note UI component
+- `BigNote` → Performance optimized lazy-rendered large content component using IntersectionObserver
+
+---
+
+### 🔗 npm Package
+
+👉 https://www.npmjs.com/package/@aslam-dev/my-lib
+
+---
+
+### 🧪 Example Usage
+
+```tsx
+import { getCurrentDate, Note, BigNote } from "@aslam-dev/my-lib";
+
+const Example = () => {
+  return (
+    <>
+      <Note title="Today" content={getCurrentDate()} />
+      <BigNote title="Performance Note" />
+    </>
+  );
+};
 
 ## 📦 Features Implemented
 
@@ -232,3 +293,4 @@ Demonstrates real-world CI/CD pipeline experience and automation.
 ## 👨‍💻 Author (Base provided by Oolio)
 
 **Aslam Mohammed**
+```

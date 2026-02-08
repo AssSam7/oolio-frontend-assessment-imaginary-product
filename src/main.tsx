@@ -6,6 +6,10 @@ import { BrowserRouter } from "react-router-dom";
 
 import AppRoutes from "./routes/AppRoutes.tsx";
 
+import { getCurrentDate } from "@aslam-dev/my-lib";
+
+console.log("Current Date: ", getCurrentDate());
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
