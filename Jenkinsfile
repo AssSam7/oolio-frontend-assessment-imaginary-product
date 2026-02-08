@@ -36,8 +36,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'npm install -g vercel'
-                sh 'vercel --prod --token=$VERCEL_TOKEN --yes'
+                sh 'npx vercel --prod --token=$VERCEL_TOKEN --yes'
             }
         }
     }
