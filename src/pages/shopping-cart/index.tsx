@@ -1,5 +1,1 @@
-const ShoppingCartPage = () => {
-  return <div>Shopping Cart </div>;
-};
-
-export default ShoppingCartPage;
+export { default } from "@/features/cart/pages/ShoppingCartPage";
