@@ -13,6 +13,7 @@ import AuthSuccessModal from "../components/AuthSuccessModal";
 
 import Icon from "@/components/common/Icon";
 import { useSnackbarStore } from "@/domain/ui/store/snackbar.store";
+import { supabase } from "@/lib/supabase";
 
 /* -------------------------------------------------------------------------- */
 /* Types                                                                      */
@@ -113,19 +114,35 @@ const UserAuthentication = () => {
     setShowSuccessModal(true);
   };
 
-  const handleSocialAuth = (provider: string) => {
-    const mockUser: AuthUser = {
-      email: `user@${provider}.com`,
-      provider,
-    };
-
-    setAuthenticatedUser(mockUser);
-    setShowSuccessModal(true);
-  };
-
   const handleCloseModal = () => {
     setShowSuccessModal(false);
   };
+
+  useEffect(() => {
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (event === "SIGNED_IN" && session?.user) {
+          const user = session.user;
+
+          setAuthenticatedUser({
+            email: user.email ?? "",
+            provider: user.app_metadata?.provider,
+          });
+
+          setShowSuccessModal(true);
+
+          showSnackbar({
+            message: "Successfully authenticated with GitHub!",
+            variant: "success",
+          });
+        }
+      }
+    );
+
+    return () => {
+      listener.subscription.unsubscribe();
+    };
+  }, [showSnackbar]);
 
   /* ---------------- Render ---------------- */
 
@@ -241,7 +258,7 @@ const UserAuthentication = () => {
                     />
                   )}
 
-                  <SocialAuthButtons onSocialAuth={handleSocialAuth} />
+                  <SocialAuthButtons />
                 </div>
               </div>
             </div>

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Button from "@/components/ui/Button";
-import { useSnackbarStore } from "@/domain/ui/store/snackbar.store";
+
 import type { IconName } from "@/components/common/Icon";
+import { supabase } from "@/lib/supabase";
 
 /*
   Social authentication buttons
@@ -10,11 +11,7 @@ import type { IconName } from "@/components/common/Icon";
   We show a loading state, trigger snackbars, and return success callback.
 */
 
-interface Props {
-  onSocialAuth: (provider: SocialProviderId) => void;
-}
-
-type SocialProviderId = "google" | "github" | "microsoft";
+type SocialProviderId = "google" | "github" | "azure";
 
 interface SocialProvider {
   id: SocialProviderId;
@@ -34,52 +31,26 @@ const socialProviders: SocialProvider[] = [
     icon: "Github",
   },
   {
-    id: "microsoft",
+    id: "azure",
     name: "Microsoft",
     icon: "Box",
   },
 ];
 
-const SocialAuthButtons = ({ onSocialAuth }: Props) => {
+const SocialAuthButtons = () => {
   const [loadingProvider, setLoadingProvider] =
     useState<SocialProviderId | null>(null);
-
-  const showSnackbar = useSnackbarStore((s) => s.show);
 
   /* Handles OAuth simulation */
   const handleSocialAuth = async (provider: SocialProviderId) => {
     setLoadingProvider(provider);
 
-    showSnackbar({
-      message: `Redirecting to ${provider} authentication...`,
-      variant: "info",
+    await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: window.location.origin + "/user-authentication",
+      },
     });
-
-    try {
-      // Simulate provider redirect delay
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Random failure simulation (assessment requirement)
-      const isFailure = Math.random() > 0.75;
-
-      if (isFailure) {
-        throw new Error("OAuth provider rejected authentication");
-      }
-
-      showSnackbar({
-        message: `${provider} ogin was successful`,
-        variant: "success",
-      });
-
-      onSocialAuth(provider);
-    } catch {
-      showSnackbar({
-        message: `Failed to authenticate using ${provider}`,
-        variant: "error",
-      });
-    } finally {
-      setLoadingProvider(null);
-    }
   };
 
   return (
